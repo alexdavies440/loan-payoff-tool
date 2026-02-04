@@ -13,44 +13,38 @@ window.addEventListener("load", function () {
         let dataArray = [];
         let balance = 0;
         let interestRate = 0;
-        let montlyContribution = 0;
-        let monthlyWithdrawal = 0;
+        let monthlyPayment = 0;
         let interestBalance = 0;
         let months = 0;
+
+        let dailyInterest = 0;
 
 
         balance = Number(document.querySelector("input[name=balance]").value);
         interestRate = Number(document.querySelector("input[name=rate]").value) / 100;
-        montlyContribution = Number(document.querySelector("input[name=contribution]").value);
-        monthlyWithdrawal = Number(document.querySelector("input[name=withdrawal]").value)
+        monthlyPayment = Number(document.querySelector("input[name=payment]").value)
         months = Number(document.querySelector("input[name=months]").value);
 
 
-        for (let i = 1; i <= months; i++) {
+        for (let i = 1; i <= months && balance > 0; i++) {
+            
+            let monthlyInterest = 0;
 
-
-            let monthlyInterest = (balance * interestRate) / 12;
+            for (let i = 0; i < 365/12; i++) {
+                dailyInterest = (balance * interestRate) / 365;
+                console.log("Daily Interest: " + dailyInterest);
+                monthlyInterest += dailyInterest;
+                balance += dailyInterest;                
+            }
+            console.log("**** Monthly Interest: " + monthlyInterest);
 
             interestBalance += monthlyInterest;
-
-            // console.log("*** Month: " + i + " ***");
-
-            // console.log();
-
-            // console.log("Balance: " + balance);
-
-            // console.log("Monthly Interest: " + monthlyInterest);
-
-            // console.log("Interest Balance: " + interestBalance);
-
-            // console.log();
-
+            
 
             let data = new Entry(i, balance, monthlyInterest, interestBalance);
 
             let p = document.querySelector("p");
 
-            // add each interation to the original array until the 12 months are complete
             dataArray.push(data);
 
             let list = "<ul>";
@@ -72,14 +66,12 @@ window.addEventListener("load", function () {
 
             p.innerHTML = list;
 
-            balance += montlyContribution;
-            balance += (monthlyWithdrawal * -1);
+            // balance += interestBalance;
+            balance += (monthlyPayment * -1);
+            
 
-            if (i === months) {
+            if (i === months || balance <= 0) {
 
-                balance += interestBalance;
-
-                console.log("Final Balance: " + balance);
                 console.log(dataArray);
                 document.getElementById("finalBalance").innerHTML = "Final Balance: £" + balance;
             }

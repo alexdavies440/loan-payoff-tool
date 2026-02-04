@@ -18,7 +18,7 @@ input, button {
 }
 p {
     margin-left: 20px; 
-    /* font-size: xx-large; */
+    font-size: larger;
     margin: 50px;
 }
 
@@ -29,5 +29,9 @@ p {
 div {
     /* width: 30%; */
     border-radius: 5px;
+}
+
+.month {
+    font-weight: bold;
 }
 

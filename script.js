@@ -30,8 +30,8 @@ window.addEventListener("load", function () {
             
             let monthlyInterest = 0;
 
-            for (let i = 0; i < 365/12; i++) {
-                dailyInterest = (balance * interestRate) / 365;
+            for (let i = 0; i < 360/12; i++) {
+                dailyInterest = (balance * interestRate) / 360;
                 console.log("Daily Interest: " + dailyInterest);
                 monthlyInterest += dailyInterest;
                 balance += dailyInterest;                
@@ -54,10 +54,10 @@ window.addEventListener("load", function () {
                 list += "<ul>"
                 
 
-                list += "<li>Month: " + item.month + "</li>";
-                list += "<li>Balance: £" + item.balance + "</li>";
-                list += "<li>Monthly Interest: £" + item.monthlyInterest + "</li>";
-                list += "<li>Interest Balance: £" + item.interestBalance + "</li>";
+                list += "<li class='month'>Month: " + item.month + "</li>";
+                list += "<li>Balance: £" + (item.balance).toFixed(2) + "</li>";
+                list += "<li>Monthly Interest: £" + (item.monthlyInterest).toFixed(2) + "</li>";
+                list += "<li>Interest Balance: £" + (item.interestBalance).toFixed(2) + "</li>";
 
                 list += "</ul><br>"
             });
